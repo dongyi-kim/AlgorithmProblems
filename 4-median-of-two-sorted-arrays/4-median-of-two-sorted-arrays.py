@@ -31,19 +31,18 @@ class Solution(object):
         cand1, cand2 = 123456789, -123456789
         while l <= r:
             m = (l + r) // 2
-            if leq(A, m) + leq(B, m) < P:
-                l = m + 1
-            else:
+            if leq(A, m) + leq(B, m) >= P:
                 r = m - 1
                 cand1 = min(cand1, m)
+            else: l = m + 1
+                
 
         l, r = min(A[0], B[0]), max(A[-1], B[-1])
         while l <= r:
             m = (l + r) // 2
-            if geq(A, m) + geq(B, m) < P:
-                r = m - 1
-            else:
+            if geq(A, m) + geq(B, m) >= P:
                 l = m + 1
                 cand2 = max(cand2, m)
+            else:   r = m - 1
 
         return (cand1 + cand2) / 2
