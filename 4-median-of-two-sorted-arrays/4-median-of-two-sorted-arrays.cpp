@@ -19,6 +19,7 @@ public:
     
     int geq(vector<int> & v, int value){
         if(value > v.back()) return 0;
+        
         int l = 0;
         int r = v.size()-1;
         while(l < r){
