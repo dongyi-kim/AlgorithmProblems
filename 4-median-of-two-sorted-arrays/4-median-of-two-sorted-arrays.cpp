@@ -19,18 +19,7 @@ public:
     
     int geq(vector<int> & v, int value){
         if(value > v.back()) return 0;
-        
-        int l = 0;
-        int r = v.size()-1;
-        while(l < r){
-            int m = (l+r)/2;
-            if(v[m] < value){
-                l = m + 1;
-            }else{
-                r = m;
-            }
-        }
-        return v.size() - l;
+        return v.size() - leq(v, value-1);
     }
     
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
