@@ -22,8 +22,7 @@ def geq(arr, value):
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
         A, B = (nums1, nums2) if len(nums1) < len(nums2) else (nums2, nums1)
-        if len(A) == 0:
-            return statistics.mean(B[(len(B) - 1) // 2: len(B) // 2 + 1])
+        if len(A) == 0: return (B[len(B)//2] + B[(len(B)-1)//2])/2
 
         N = len(A) + len(B)
         P = (N + 1) // 2
