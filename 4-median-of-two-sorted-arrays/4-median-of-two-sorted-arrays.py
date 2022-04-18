@@ -1,8 +1,4 @@
-import statistics
-
-
 def leq(arr, value):
-    if value < arr[0]: return 0
     ret = 0
     lidx, ridx = 0, len(arr) - 1
     while lidx <= ridx:
@@ -14,10 +10,8 @@ def leq(arr, value):
             ridx = midx - 1
     return ret
 
-
 def geq(arr, value):
     return len(arr) - leq(arr, value - 1)
-
 
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
@@ -35,7 +29,7 @@ class Solution(object):
                 r = m - 1
                 cand1 = min(cand1, m)
             else: l = m + 1
-                
+
 
         l, r = min(A[0], B[0]), max(A[-1], B[-1])
         while l <= r:
