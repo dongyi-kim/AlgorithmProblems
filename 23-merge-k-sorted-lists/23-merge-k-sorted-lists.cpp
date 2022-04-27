@@ -14,28 +14,41 @@
 using namespace std;
 class Solution {
 public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size() == 0) return nullptr;
-        
-        priority_queue<pair<int, ListNode*> > pq;
-        for(const auto &e : lists){
-            if(e) pq.push({-e->val, e});
-        }
-        
+    ListNode* merge2Lists(ListNode* a, ListNode* b){
+        if(not a ) return b;
+        if(not b ) return a;
         ListNode* head = nullptr;
         ListNode* tail = nullptr;
-        
-        while(!pq.empty()){
-            auto e = pq.top(); pq.pop();
-            auto node = e.second;
-            if(not head) head = tail = new ListNode(node->val);
-            else {
-                tail = tail->next = new ListNode(node->val);
+        if(a->val < b->val){
+            head = tail = a;
+            a = a->next;
+        }else{
+            head = tail = b;
+            b= b->next;
+        }     
+        while( a || b ){
+            if(not a ){
+                tail = tail->next = b;
+                b = b->next;
+            }else if(not b){
+                tail = tail->next = a;
+                a = a->next;
+            }else if(a->val < b->val){
+                tail = tail->next = a;
+                a = a->next;
+            }else{
+                tail = tail->next = b;
+                b = b->next;
             }
-            if(not node->next) continue;
-            node = node->next;
-            pq.push({-node->val, node});
         }
         return head;
+    }
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if(lists.size() == 0) return nullptr;
+        ListNode* answer = nullptr;
+        for(int i = 0 ; i < lists.size(); i += 1){
+            answer = merge2Lists(answer, lists[i]);
+        }
+        return answer;
     }
 };
