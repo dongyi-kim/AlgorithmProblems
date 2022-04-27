@@ -27,7 +27,7 @@ public:
             b= b->next;
         }     
         while( a || b ){
-            if(not a ){
+            if(not a){
                 tail = tail->next = b;
                 b = b->next;
             }else if(not b){
