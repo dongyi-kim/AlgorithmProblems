@@ -32,7 +32,6 @@ public:
             else {
                 tail = tail->next = new ListNode(node->val);
             }
-            
             if(not node->next) continue;
             node = node->next;
             pq.push({-node->val, node});
