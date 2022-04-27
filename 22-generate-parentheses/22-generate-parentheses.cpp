@@ -2,20 +2,25 @@
 using namespace std;
 class Solution {
 public:
-    vector<string> generateParenthesis(int n) {
-        vector<string> answer;
-        if( n == 0){
-            return {""};
-        }else{
-            for(int c = 0 ; c < n ; c += 1){
-                for(string& left : generateParenthesis(c)){
-                    for(string& right : generateParenthesis(n-1-c)){
-                        answer.push_back("(" + left + ")" + right);
-                    }
-                }
-            }
+    vector<string> generateParenthesis(int N) {
+        m = 2 * N;
+        dfs(0, 0, 0);
+        return ans;
+    }
+    
+private:
+    vector<string> ans;
+    int m;
+    
+    void dfs(int pos, int open, int seq) {
+        if (pos == m) {
+            string res = "";
+            for (int i = 0; i < m; i++)
+                res += seq & 1 << i ? "(" : ")";
+            ans.push_back(res);
+            return;
         }
-        return answer;
-        
+        if (open) dfs(pos+1, open-1, seq);
+        if (m - pos > open) dfs(pos+1, open+1, seq | 1 << pos);
     }
 };
