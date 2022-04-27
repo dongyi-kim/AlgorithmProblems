@@ -15,8 +15,8 @@ using namespace std;
 class Solution {
 public:
     ListNode* merge2Lists(ListNode* a, ListNode* b){
-        if(not a ) return b;
-        if(not b ) return a;
+        if(a == nullptr ) return b;
+        if(b == nullptr ) return a;
         ListNode* head = nullptr;
         ListNode* tail = nullptr;
         if(a->val < b->val){
@@ -45,10 +45,11 @@ public:
     }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if(lists.size() == 0) return nullptr;
-        ListNode* answer = nullptr;
-        for(int i = 0 ; i < lists.size(); i += 1){
-            answer = merge2Lists(answer, lists[i]);
+        for(int step = 1; step < lists.size(); step *= 2){
+            for(int i = 0 ; i + step < lists.size(); i += 2*step){
+                lists[i] = merge2Lists(lists[i], lists[i+step]);
+            }
         }
-        return answer;
+        return lists[0];
     }
 };
